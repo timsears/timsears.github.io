@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+
+   <!-- Standard site meta information -->
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>This is a “Test” blog post. ← Either a Blog ← Tim Sears</title>
+   <meta name="author" content="Tim Sears" />
+
+   <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
+   <!-- link rel='openid.delegate' href='http://timsears.githun.io' / -->
+
+   <link rel="start" href="../" />
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="../css/screen.css" type="text/css" media="all" />
+   <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+   <link rel="stylesheet" href="../css/widgets.css" type="text/css" media="all" />
+   <link rel="stylesheet" href="../css/amjr.css" type="text/css" media="all" />
+
+ 	<meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@timothydsears">
+    <meta name="twitter:site" content="@timothydsears">
+    <meta name="twitter:title" content="This is a “Test” blog post.">
+    <meta name="twitter:description" content="A post that works out all of the formatting options and provides a record of how to add figures, quotes, etc.">
+
+<!-- MathJax configuration and loading -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["\\(","\\)"] ],
+			displayMath: [ ["\\[","\\]"] ],
+			processEscapes: true
+		},
+		TeX: { equationNumbers: { autoNumber: "AMS" } },
+		"HTML-CSS": { availableFonts: ["TeX"] }
+	});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+</head>
+
+<body id="Blog">
+
+<div id="site">
+  <div id="header">
+<h1>
+	<a href="../" title="Maybe Blog?">Either a Blog</a>
+	<span class="byline">← <a href="../">Tim Sears</a></span>
+</h1>
+<ul class="nav">
+  <li><a class="home" href="../">Home</a></li>
+  <li><a class="about" href="../about.html">About</a></li>
+  <li><a class="archive" href="../archive.html">Archive</a></li>
+  <li><a class="recommended" href="../recommended.html">Recommended</a></li>
+</ul>
+</div>
+
+<div id="page">
+
+<h1 class="emphnext">This is a “Test” blog post.</h1>
+
+<h2 id="figures">Figures</h2>
+<p>Figures are handled in one of two ways. The first way is to use Pandoc’s shorthand:</p>
+<div class="figure">
+<img src="../pics/ada.jpg" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
+</div>
+<p>I also sometimes use description lists with class <code>figure</code> to display figures. The <code>dd</code> element holds the image and captions are contained inside <code>&lt;dt&gt;&lt;p&gt; ... &lt;/p&gt;&lt;/dt&gt;</code> blocks.</p>
+<dl class="figure">
+	<dd>
+<img src="../pics/ada.jpg" alt="Alt. text" />
+</dd>
+	<dt><p>
+<em>Figure 1 (alt)</em>: This is a description list figure.
+</p></dt>
+</dl>
+
+<p>The second option allows more flexibility since the images can be made into links, and multiple images can be added to the same figure.</p>
+<h3 id="no-stretching">No Stretching</h3>
+<p>By default, figures are stretched to 95% of the text width. This can be suppressed by surrounding the figure in a <code>div</code> with class <code>nostretch</code>:</p>
+<div class="nostretch">
+<div class="figure">
+<img src="../pics/ada.jpg" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
+</div>
+</div>
+<p>(Note: I have not fugured out how to centre unstretched figures)</p>
+<h2 id="tables">Tables</h2>
+<p>Here is a table created using Pandoc’s simple table style:</p>
+<table>
+<caption><em>Table 1</em>: Frequency of languages used in MLOSS projects.</caption>
+<tbody>
+<tr class="odd">
+<td align="right"><strong>Language</strong></td>
+<td align="center">C++</td>
+<td align="center">Java</td>
+<td align="center">Matlab</td>
+<td align="center">Octave</td>
+<td align="center">Python</td>
+<td align="center">C</td>
+<td align="center">R</td>
+</tr>
+<tr class="even">
+<td align="right"><strong>Count</strong></td>
+<td align="center">15</td>
+<td align="center">13</td>
+<td align="center">11</td>
+<td align="center">10</td>
+<td align="center">9</td>
+<td align="center">5</td>
+<td align="center">4</td>
+</tr>
+</tbody>
+</table>
+<div class="note">
+Note: Table and Figure captions have italicised titles.
+</div>
+<h2 id="other-gotchas">Other Gotchas</h2>
+<ul>
+<li>Do not use straight quotes <code>&quot;</code> in the metadata (e.g., <code>title</code>, <code>excerpt</code>) as these will break the Disqus script.</li>
+</ul>
+
+
+<address class="signature">
+	<a class="author" href="http://timsears.github.io">Tim Sears</a>
+  <span class="date">August 28, 2013</span>
+  </address>
+
+</div>
+<address id="feed" class="quiet right">Subscribe: <a href="../atom.xml" title="Subscribe to Atom feed"><em>Atom Feed</em></a></address>
+
+
+<!-- Disqus Comments -->
+<div id="disqus_thread"></div>
+
+<!-- Enable Disqus comments -->
+<script type="text/javascript">
+        var disqus_iframe_css = "http://timsears.github.io/css/screen.css";
+        var disqus_title = "This is a “Test” blog post.";
+        var disqus_message = "A post that works out all of the formatting options and provides a record of how to add figures, quotes, etc.";
+</script>
+<script type="text/javascript" src="http://disqus.com/forums/timesears/embed.js"></script>
+
+<noscript>
+    <a href="http://timsears.disqus.com/?url=ref">View the discussion thread.</a>
+</noscript>
+
+
+
+
+    <!-- Footer with copyright and contact information -->
+  <div id="footer">
+	<address>
+		<span class="copyright">
+			Content by Tim Sears <a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
+		</span>
+		<span class="engine">
+                  Design by 
+		  <a href="http://mark.reid.name">Mark Reid</a>			Powered by 
+		  <a href="http://jaspervdj.be/hakyll/" title="A static, minimalist, Haskell-powered CMS">Hakyll</a>
+		</span>
+	</address>
+  </div>
+
+</div>
+
+
+</body>
+</html>
+
+
+
