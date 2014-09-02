@@ -15,7 +15,7 @@ TO DO for v1.1:
 */
 
 var count = 1; 					// maximum number of feed items to process per feed
-var totalCount = 10; 			// total feed items to output
+var totalCount = 20; 			// total feed items to output
 var proxy = 'google'; 			// google or yql (google is faster)
 var containerID = 'amjr';		// the id of a UL element to hold feed results
 var loaderID = 'loader';		// the id of the LI element used as the loader

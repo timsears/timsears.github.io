@@ -5,8 +5,8 @@
 
    <!-- Standard site meta information -->
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>About ← Either a Blog ← Tim Sears</title>
-   <meta name="author" content="Tim Sears" />
+   <title>About ← Blog</title>
+   <meta name="author" content="Tim" Sears />
 
    <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
    <!-- link rel='openid.delegate' href='http://timsears.githun.io' / -->
@@ -58,49 +58,36 @@
 
 <div id="page">
 
-<h1 id="about-inductio-ex-machina">About <em>Inductio ex Machina</em></h1>
-<p><a href="./">I</a> started this blog in <a href="./iem/introducing-inductio-ex-machina.html">September 2007</a> shortly after I began my current <a href="./work/">post-doctoral</a> appointment. I wanted an outlet for research-related writing that lies somewhere between my notebooks and <a href="./work/pubs/">published papers</a>.</p>
-<p>That means you will find <a href="./blog/behold-jensens-inequality.html">expositions</a>, <a href="./iem/supercrunchers.html">book reviews</a>, <a href="./iem/colt-2008-highlights.html">commentary</a> on conferences, <a href="./iem/ml-and-stats-people-on-twitter.html">lists</a>, and the odd bit of <a href="./iem/information-divergence-and-risk.html">self-promotion</a>.</p>
-<h2 id="popular-posts">Popular Posts</h2>
-<p>If you are looking for a place to dive in, you could start with my most popular posts. These are:</p>
-<ul>
-<li><p><a href="./blog/gun-deaths-vs-gun-ownership.html">Gun Deaths vs. Gun Ownership</a> – Looking at some data on gun-related deaths and gun ownership worldwide in the wake of the Sandy Hook shooting.</p></li>
-<li><p><a href="./blog/behold-jensens-inequality.html">Behold! Jensen’s Inequality</a> – Unsatisfied with the very algebraic and formal proofs of Jensen’s inequality, I present a diagram that gives a graphical intuition for the result.</p></li>
-<li><p><a href="./blog/warning-high-dimensions.html">Warning! High Dimensions Ahead</a> – A very counter-intuitive result that highlights the danger of reasoning about higher dimensional space by analogy with lower dimensional ones.</p></li>
-<li><p><a href="./blog/prediction-and-the-axiom-of-choice.html">Prediction and the Axiom of Choice</a> – Some thoughts on Hardin and Taylor’s paper “A Peculiar Connection Between the Axiom of Choice and Predicting the Future”</p></li>
-<li><p><a href="./blog/the-mathematical-grue.html">The Mathematical Grue</a> – Doing mathematics sometimes feels like playing a piece of interactive fiction.</p></li>
-</ul>
-<h2 id="colophon">Colophon</h2>
+<h1 id="about">About</h1>
+<h1 id="me">Me</h1>
+<p>Hi I’m Tim Sears. My LinkedIn profile is <a href="http://linkedin.com/in/timsears/">here</a>.</p>
+<div class="nostretch">
+<img src="images/timsears_headshot.png" alt="Me" />
+</div>
+<p><br></p>
+<h1 id="either-a-blog"><code>Either a Blog</code></h1>
+<p>I have an interest in Haskell, functional programming, math, finance, machine learning and computer vision. You might see blog posts touching on all these areas at some point.</p>
+<p><code>Either a b</code> is a commonly used data type in Haskell. It can be used for lots of things, but is often used to represent computations that can fail. In this case, a <code>Blog</code>.</p>
+<h1 id="contact">Contact</h1>
+<p>You can email me at</p>
+<pre class="haskell"><code>concat . reverse $ [&quot;.com&quot;, &quot;timsears&quot;, &quot;tim@&quot;]</code></pre>
+<h1 id="meetup">Meetup?</h1>
+<p>If you are in the San Francisco Bay area, come and join us at Haskell Hackers at Hacker Dojo<a href="http://meetups.com/haskellhackersathackerdojo.com">hackers</a>. The group generally meets every four weeks at Hacker Dojo in Mountain View. Schedules and details <a href="http://meetups.com/haskellhackersathackerdojo.com">here</a>.</p>
+<h1 id="building-this-site">Building this site</h1>
 <p>The posts in the blog are written in a hybrid of <a href="http://daringfireball.net/projects/markdown/">Markdown</a> (for text) and <a href="http://www.latex-project.org/">LaTeX</a> (for equations) and converted into HTML by <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a> as part of the <a href="http://jaspervdj.be/hakyll/">Hakyll</a> engine.</p>
-<p><a href="./">My entire site</a> is managed this way and there are more details about the design and technology I use at the main site’s <a href="./info/site.html">colophon</a>.</p>
-<h2 id="licence">Licence</h2>
+<p>The design and much of the code to generate the site was pretty much stolen from Mark Reid’s <a href="http://mark.reid.name/blog/">blog</a>. Mark kindly made his code available as have a number of other <a href="http://jaspervdj.be/hakyll/examples.html/">Hakyll powered sites</a>.</p>
+<h1 id="license">License</h1>
 <p>Unless specified otherwise, all design and content within this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License</a>.</p>
 
 </div>
 
 
 
-<script type="text/javascript">
-//<![CDATA[
-(function() {
-                var links = document.getElementsByTagName('a');
-                var query = '?';
-                for(var i = 0; i < links.length; i++) {
-                        if(links[i].href.indexOf('#disqus_thread') >= 0) {
-                                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-                        }
-                }
-                document.write('<script type="text/javascript" src="http://disqus.com/forums/markreid/get_num_replies.js' + query + '"></' + 'script>');
-        })();
-//]]>
-</script>
-
-
     <!-- Footer with copyright and contact information -->
   <div id="footer">
 	<address>
 		<span class="copyright">
-			Content by Tim Sears <a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
+			Content by Tim Sears <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
 		</span>
 		<span class="engine">
                   Design by 

@@ -5,8 +5,8 @@
 
    <!-- Standard site meta information -->
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>This is a “Test” blog post. ← Either a Blog ← Tim Sears</title>
-   <meta name="author" content="Tim Sears" />
+   <title>This is a “Test” blog post. </br> Modified slightly from Mark Reid's original. ← Either a Blog ← Tim Sears</title>
+   <meta name="author" content="Tim" Sears />
 
    <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
    <!-- link rel='openid.delegate' href='http://timsears.githun.io' / -->
@@ -25,7 +25,7 @@
  	<meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@timothydsears">
     <meta name="twitter:site" content="@timothydsears">
-    <meta name="twitter:title" content="This is a “Test” blog post.">
+    <meta name="twitter:title" content="This is a “Test” blog post. &lt;/br&gt; Modified slightly from Mark Reid's original.">
     <meta name="twitter:description" content="A post that works out all of the formatting options and provides a record of how to add figures, quotes, etc.">
 
 <!-- MathJax configuration and loading -->
@@ -64,17 +64,22 @@
 
 <div id="page">
 
-<h1 class="emphnext">This is a “Test” blog post.</h1>
+<h1 class="emphnext">This is a “Test” blog post. </br> Modified slightly from Mark Reid's original.</h1>
 
 <h2 id="figures">Figures</h2>
 <p>Figures are handled in one of two ways. The first way is to use Pandoc’s shorthand:</p>
+<p><code>![_Figure 1_: This is a Pandoc figure.](/images/research.png)</code></p>
 <div class="figure">
-<img src="../pics/ada.jpg" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
+<img src="../images/research.png" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
 </div>
-<p>I also sometimes use description lists with class <code>figure</code> to display figures. The <code>dd</code> element holds the image and captions are contained inside <code>&lt;dt&gt;&lt;p&gt; ... &lt;/p&gt;&lt;/dt&gt;</code> blocks.</p>
+<p>I also sometimes use description lists with class <code>figure</code> to display figures. The <code>dd</code> element holds the image and captions are contained inside <code>&lt;dt&gt;&lt;p&gt; ... &lt;/p&gt;&lt;/dt&gt;</code> blocks like so…</p>
+<pre><code>&lt;dl class=&quot;figure&quot;&gt;
+	&lt;dd&gt;![Alt. text](/images/research.png)&lt;/dd&gt;
+	&lt;dt&gt;&lt;p&gt;_Figure 1 (alt)_: This is a description list figure.&lt;/p&gt;&lt;/dt&gt;
+&lt;/dl&gt;</code></pre>
 <dl class="figure">
 	<dd>
-<img src="../pics/ada.jpg" alt="Alt. text" />
+<img src="../images/research.png" alt="Alt. text" />
 </dd>
 	<dt><p>
 <em>Figure 1 (alt)</em>: This is a description list figure.
@@ -86,7 +91,7 @@
 <p>By default, figures are stretched to 95% of the text width. This can be suppressed by surrounding the figure in a <code>div</code> with class <code>nostretch</code>:</p>
 <div class="nostretch">
 <div class="figure">
-<img src="../pics/ada.jpg" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
+<img src="../images/research.png" alt="Figure 1: This is a Pandoc figure." /><p class="caption"><em>Figure 1</em>: This is a Pandoc figure.</p>
 </div>
 </div>
 <p>(Note: I have not fugured out how to centre unstretched figures)</p>
@@ -127,8 +132,9 @@ Note: Table and Figure captions have italicised titles.
 
 
 <address class="signature">
-	<a class="author" href="http://timsears.github.io">Tim Sears</a>
-  <span class="date">August 28, 2013</span>
+	<!-- a class="author" href="http://timsears.github.io">Tim Sears</a> -->
+        <a class="author" href="http://timsears.github.io">Tim Sears</a>
+  <span class="date">August 28, 2014</span>
   </address>
 
 </div>
@@ -141,10 +147,10 @@ Note: Table and Figure captions have italicised titles.
 <!-- Enable Disqus comments -->
 <script type="text/javascript">
         var disqus_iframe_css = "http://timsears.github.io/css/screen.css";
-        var disqus_title = "This is a “Test” blog post.";
+        var disqus_title = "This is a “Test” blog post. </br> Modified slightly from Mark Reid's original.";
         var disqus_message = "A post that works out all of the formatting options and provides a record of how to add figures, quotes, etc.";
 </script>
-<script type="text/javascript" src="http://disqus.com/forums/timesears/embed.js"></script>
+<script type="text/javascript" src="http://disqus.com/forums/timsears/embed.js"></script>
 
 <noscript>
     <a href="http://timsears.disqus.com/?url=ref">View the discussion thread.</a>
@@ -157,7 +163,7 @@ Note: Table and Figure captions have italicised titles.
   <div id="footer">
 	<address>
 		<span class="copyright">
-			Content by Tim Sears <a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
+			Content by Tim Sears <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
 		</span>
 		<span class="engine">
                   Design by 
