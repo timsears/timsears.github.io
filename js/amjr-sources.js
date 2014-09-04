@@ -4,7 +4,9 @@ var feeds = [
     'http://comonad.com/reader/feed/',
     'http://neilmitchell.blogspot.com/feeds/posts/default',
     'http://haskellforall.blogspot.com/feeds/posts/default',
-    'http://mark.reid.name/blog/'
+    'http://wadler.blogspot.com/atom.xml',
+    'http://feeds.feedburner.com/RomanCheplyaka',
+    'http://mark.reid.name/blog/',
     'http://blog.smola.org/rss',
     'http://hunch.net/?feed=rss',
     'https://hips.seas.harvard.edu/blog/feed/',
