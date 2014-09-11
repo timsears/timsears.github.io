@@ -6,6 +6,7 @@ var feeds = [
     'http://haskellforall.blogspot.com/feeds/posts/default',
     'http://wadler.blogspot.com/atom.xml',
     'http://feeds.feedburner.com/RomanCheplyaka',
+    'http://gelisam.blogspot.com/feeds/posts/default'
     'http://mark.reid.name/blog/',
     'http://blog.smola.org/rss',
     'http://hunch.net/?feed=rss',
