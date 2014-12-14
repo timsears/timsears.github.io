@@ -186,7 +186,8 @@ mynixpkgs.haskellPackages_ghcHEAD</code></pre>
 <h2 id="do-understand-profiles.">Do understand profiles.</h2>
 <p>There at least three “locations” to install packages in nixos: the system, user-profile and per-project.</p>
 <p><em>System level install</em>. You can add them to <code>/etc/configuration.nix</code> as I have done <a href="https://gist.github.com/timsears/46be2bc972909913770a">here</a>. This makes them available to all user profiles. There’s probably only one real user on your dev box, but this is still a useful option. For example, if you want to make use of multiple user profiles for packages that don’t play nice and don’t want to reinstall emacs everywhere this is a good option. If you prefer not to edit this file you can create a custom set of packages that every user profile can install. I won’t talk about this here and I am be interested to hear other nix users’ comments on easy ways to choose the best place for package installs.</p>
-<p><em>User profile install</em> You can also just install packages in your default profile <code>nix-env -iA nixpkgs.somePackage</code> and that’s fine. Eventually you will need to manage groups of packages that do not play nice, such as different versions of ghc and their corresponding libraries. Let’s create two new user profiles. In <code>so2013</code> we will run ghc 7.42 and in the profile <code>letitbleed</code> we will run <code>ghcHEAD</code> which corresponds to an unreleased ghc 7.9.</p>
+<h3 id="user-profile-installs">User profile installs</h3>
+<p>You can also just install packages in your default profile <code>nix-env -iA nixpkgs.somePackage</code> and that’s fine. Eventually you will need to manage groups of packages that do not play nice, such as different versions of ghc and their corresponding libraries. Let’s create two new user profiles. In <code>so2013</code> we will run ghc 7.42 and in the profile <code>letitbleed</code> we will run <code>ghcHEAD</code> which corresponds to an unreleased ghc 7.9.</p>
 <p>Nix was designed by folks unafraid of long pathnames, so here’s how you are supposed to do it.</p>
 <pre><code>$ nix-env --switch-profile /nix/var/nix/profiles/per-user/timsears/so2013
 $ nix-env -q --confirm it's an empty profile
@@ -212,7 +213,7 @@ ghc-pkg: ghc no longer supports single-file style package databases (/nix/store/
 cannot build derivation `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv': 1 dependencies couldn't be built
 error: build of `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv' failed</code></pre>
 <p>Boom! Looks like the dependency hscolour does not install, confirming we are indeed on the bleeding edge. We’ll leave that for another day.</p>
-<p><em>Project level “installs”</em></p>
+<h3 id="project-level-installs">Project level installs</h3>
 <p>When building your own code with nix you can hide your system and user profiles to build code in a more or less clean environment using <code>nix-build</code> and <code>nix-shell</code>. You don’t really install packages, you declare dependencies. I will get into more detail in a later post.</p>
 <h1 id="next-time">Next Time</h1>
 <p>As long as this post turned out to be, it was still to short to cover how to hack on a more realistic project. For that we need to cover <code>cabal2nix</code> and be able to read and modify nix expressions. We will also need to point nix at our own source code and prevent it from doing crazy things like copying our entire git repo into the nix store.</p>
