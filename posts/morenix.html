@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+
+   <!-- Standard site meta information -->
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>I am trying nix - Part 2 ← Either a Blog ← Tim Sears</title>
+   <meta name="author" content="Tim" Sears />
+
+   <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
+   <!-- link rel='openid.delegate' href='http://timsears.githun.io' / -->
+
+   <link rel="start" href="../" />
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="../css/screen.css" type="text/css" media="all" />
+   <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+   <link rel="stylesheet" href="../css/widgets.css" type="text/css" media="all" />
+   <link rel="stylesheet" href="../css/amjr.css" type="text/css" media="all" />
+
+ 	<meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@timothydsears">
+    <meta name="twitter:site" content="@timothydsears">
+    <meta name="twitter:title" content="I am trying nix - Part 2">
+    <meta name="twitter:description" content="Some nix tips">
+
+<!-- MathJax configuration and loading -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["\\(","\\)"] ],
+			displayMath: [ ["\\[","\\]"] ],
+			processEscapes: true
+		},
+		TeX: { equationNumbers: { autoNumber: "AMS" } },
+		"HTML-CSS": { availableFonts: ["TeX"] }
+	});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+</head>
+
+<body id="Blog">
+
+<div id="site">
+  <div id="header">
+<h1>
+	<a href="../" title="Maybe Blog?">Either a Blog</a>
+	<span class="byline">← <a href="../">Tim Sears</a></span>
+</h1>
+<ul class="nav">
+  <li><a class="home" href="../">Home</a></li>
+  <li><a class="about" href="../about.html">About</a></li>
+  <li><a class="archive" href="../archive.html">Archive</a></li>
+  <li><a class="recommended" href="../recommended.html">Recommended</a></li>
+</ul>
+</div>
+
+<div id="page">
+
+<h1 class="emphnext">I am trying nix - Part 2</h1>
+
+<p>This is an update on how I am getting along with nixos/nix since <a href="http://blog.timsears.com/posts/im_trying_nix.html">last time</a>. At that point I had only installed nixos, added a few essential packages and even started editing and generating this blog on the new system. Now I want to play around with bleeding edge Haskell code and not pay a heavy price in terms of system configuration. If I can continue on from there to develop production code I will consider the experiment a success and may migrate to using nixos full-time.</p>
+<h1 id="about-nix">About nix</h1>
+<p><a href="http://nixos.org/nixos">Nixos</a> is a linux distro that uses the nix package manager to manage your system, while <a href="http://nixos.org/nix">nix</a> is a package manager that can be used on a variety of systems, perhaps as a replacement for homebrew on mac, or in addition to apt-get on ubuntu. There is also a cloud management tool called nixops that is very interesting in its own right.</p>
+<p>One of the big draws of nix is the idea that it sandboxes <em>everything</em>. That means every package you install keeps track of all its inputs and outputs in <code>/nix/store</code>. Nix manages your environment by adding and removing packages from the various paths that make up your environment. Conflicting packages can easily coexist on the system, since every package can specify all its dependencies in complete ignorance of other packages. Some Haskell devs have moved to nix to avoid so called “cabal hell”. Cabal sandboxes, especially the newer version, work fine for many users, but nix also covers code outside of Haskell and makes it easier, in my opinion at least, to support multiple versions of ghc on your dev box.</p>
+<p>I have never gotten the hang of running multiple ghc versions on my ubuntu dev box and have never seen a solution that looked easy to manage. Frankly, I am a coward, since I use my dev box to produce production code, and I don’t want to break anything besides my own code. Of course breaking things is probably the best way to learn. Nix promised to make it easy for the cowardly and fearless me to work on the same box. That’s a very enticing claim to test.</p>
+<h1 id="first-some-tips">First Some Tips</h1>
+<p>So far the learning curve for nix has been steep, though maybe less steep than learning Haskell. Before doing some more serious hacking, here are some suggestions that a “normal” Haskell developer like me might wish to consider to make the learning curve that much easier.</p>
+<h2 id="do-check-out-some-nix-resources.">Do check out some nix resources.</h2>
+<p>The documentation for nix is fairly complete, but sometimes seems written by experts, for experts. Fortunately there are a few good introductory blog pieces around, many of them written by devs who appear to be heavily involved with the nix project. Here are a few in no special order that I found helpful:</p>
+<p><a href="https://www.domenkozar.com/2014/01/02/getting-started-with-nix-package-manager/">Domen Kožar: getting started with nix</a></p>
+<p><a href="http://lethalman.blogspot.it/2014/07/nix-pill-1-why-you-should-give-it-try.html">Lethalman’s Nix Pills Series</a></p>
+<p><a href="http://fluffynukeit.com/series/haskell-nixos/">Setting Up Haskell Development on NixOS Linux from Scratch « fluffynukeit</a></p>
+<p><a href="http://sandervanderburg.blogspot.com/2014/07/managing-private-nix-packages-outside.html">Sander van der Burg’s blog: Managing private Nix packages outside the Nixpkgs tree</a></p>
+<p><a href="http://fuuzetsu.co.uk/blog/posts/2014-06-28-My-experience-with-NixOS.html">Fūzetsu’s Corner: My experience with NixOS</a></p>
+<p><a href="http://www.pavelkogan.com/2014/07/09/haskell-development-with-nix/#fn:1">Haskell development with Nix · Pavel Kogan</a></p>
+<p><a href="https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55">Nix by example: The Nix expression language</a></p>
+<p><a href="http://blog.matejc.com/blogs/myblog/control-your-packages-with-nix-environments/">Control your packages with Nix created profiles! - Matej Cotman’s Blog</a></p>
+<p><a href="https://blog.kyleisom.net/nixos-experience-report/">NixOS Experience Report</a></p>
+<p>Special mention goes to a couple of blog posts by Ollie Charles, which convinced me to finally invest some serious time in nix.</p>
+<p><a href="https://ocharles.org.uk/blog/posts/2014-02-04-how-i-develop-with-nixos.html">How I Develop with Nix</a></p>
+<p><a href="http://wiki.ocharles.org.uk/Nix#how-do-i-use-cabal2nix-for-local-projects">How I use cabal2nix</a></p>
+<p>It is also worth highlighting a few of the most helpful spots in the offical docs.</p>
+<p><a href="https://nixos.org/wiki/Nix_Modifying_Packages">Nix Modifying Packages - Nix Wiki</a></p>
+<p><a href="http://nixos.org/nix/manual/#ssec-builtins">Nix User’s Guide-Builtins</a></p>
+<p><a href="https://nixos.org/wiki/Haskell">Haskell - Nix Wiki</a></p>
+<p><a href="https://nixos.org/wiki/Debugging_a_Nix_Package">Debugging a Nix Package - Nix Wiki</a></p>
+<p><a href="http://nixos.org/nix/manual/#chap-writing-nix-expressions">Nix User’s Guide</a></p>
+<h2 id="do-refer-to-nix-packages-by-their-attribute-path-rather-than-their-name-whenever-possible.">Do refer to nix packages by their attribute path rather than their name whenever possible.</h2>
+<p>The installation command <code>nix-env -i</code> lets you refer to packages either through their “attribute path” or their package name. The latter is very slow due to the way the query tool currently works.</p>
+<p>As a result, for me</p>
+<pre><code>nix-env -iA nixpkgs.haskellPackages.SomeHaskellPkg</code></pre>
+<p>is usually dramatically faster than</p>
+<pre><code>nix-env -i haskell-some-haskell-pkg</code></pre>
+<p>Where to find these attribute paths? You can do <code>nix-env -qaP</code> to get the attribute paths. For a while I was saving the output to a file and searching for packages there until I learned the next trick.</p>
+<h2 id="do-install-nix-repl.">Do install nix-repl.</h2>
+<p>It is as easy as</p>
+<pre><code>nix-env -iA nixpkgs.nix-repl</code></pre>
+<p>Having the repl available does a number of things for you. First, since nix uses the nix expression language for all its build recipes, nix-repl is like ghci for that language. You can play around with simple expressions to get used to the languaga. That will come in handy later.</p>
+<p>nix-repl is also handy for inspecting availble packages. Try this…</p>
+<pre><code>$ nix-repl
+nix-repl&gt; nixpkgs = import &lt;nixpkgs&gt;
+nix-repl&gt; :a builtins
+nix-repl&gt; attrNames nixpkgs
+builtins.attrNames pkgs
+[ &quot;AgdaSheaves&quot; &quot;AgdaStdlib&quot; &quot;DisnixWebService&quot; &quot;LASzip&quot; &quot;MPlayerPlugin&quot;
+&quot;OVMF&quot; &quot;PPSSPP&quot; &quot;PatolineEnv&quot; &quot;R&quot; &quot;SDL&quot; &quot;SDL2&quot; &quot;SDL2_gfx&quot; &quot;SDL2_image&quot;
+&quot;SDL2_mixer&quot; &quot;SDL2_net&quot; &quot;SDL_gfx&quot; &quot;SDL_image&quot; &quot;SDL_mixer&quot; &quot;SDL_net&quot; &quot;SDL_sound&quot;
+&quot;SDL_ttf&quot;&quot;TotalParserCombinators&quot; &quot;VisualBoyAdvance&quot; &quot;Xaw3d&quot; &quot;ZopeInterface&quot;
+&quot;_915resolution&quot; &quot;a2jmidid&quot; &quot;a52dec&quot; &quot;aacskeys&quot; &quot;aalib&quot; &quot;aangifte2006&quot;
+&quot;aangifte2007&quot; &quot;aangifte2008&quot; &quot;aangifte2009&quot; &quot;aangifte2010&quot; &quot;aangifte2011&quot;
+&quot;aangifte2012&quot; &quot;aangifte2013&quot; &quot;abc&quot; &quot;abc-verifier&quot; &quot;abcPatchable&quot; &quot;abcde&quot;
+&quot;abduco&quot; &quot;abiword&quot; ... ]</code></pre>
+<p>A total of 4430 packages appear in the output on my system. Let’s hunt for versions of ghc that are available.</p>
+<pre><code>nix-repl&gt; attrNames nixpkgs.haskellP&lt;TAB&gt;
+nix-repl&gt; builtins.attrNames nixpkgs.haskell
+nixpkgs.haskell
+nixpkgs.haskellPackages
+nixpkgs.haskellPackages_ghc6104
+nixpkgs.haskellPackages_ghc6123
+nixpkgs.haskellPackages_ghc704
+nixpkgs.haskellPackages_ghc722
+nixpkgs.haskellPackages_ghc742
+nixpkgs.haskellPackages_ghc763
+nixpkgs.haskellPackages_ghc783
+nixpkgs.haskellPackages_ghc783_no_profiling
+nixpkgs.haskellPackages_ghc783_profiling
+nixpkgs.haskellPackages_ghcHEAD
+nix-repl&gt; exit</code></pre>
+<p>This shows all the versions of ghc available including the latest bleeding edge version. The default is currrently 7.63 and ghcHEAD corresponds to an unreleased version of ghc. Many of these also have binary cached versions availablle, which install much faster and are exactly what you would get if you built them yourself.</p>
+<p>You can also hunt specifically for Haskell packages. Let’s see what’s available for ghc 7.6.3.</p>
+<pre><code>$ nix-repl
+nix-repl&gt; nixpkgs.haskellPackages_ghc763.&lt;TAB&gt;
+nixpkgs.haskellPackages_ghc763.ACVector
+nixpkgs.haskellPackages_ghc763.AES
+nixpkgs.haskellPackages_ghc763.Agda
+nixpkgs.haskellPackages_ghc763.Allure
+nixpkgs.haskellPackages_ghc763.BNFC
+nixpkgs.haskellPackages_ghc763.BlogLiterately
+nixpkgs.haskellPackages_ghc763.Boolean
+nixpkgs.haskellPackages_ghc763.BoundedChan
+nixpkgs.haskellPackages_ghc763.CCdelcont
+nixpkgs.haskellPackages_ghc763.Cabal
+nixpkgs.haskellPackages_ghc763.Cabal_1_16_0_3
+nixpkgs.haskellPackages_ghc763.Cabal_1_18_1_3
+nixpkgs.haskellPackages_ghc763.Cabal_1_20_0_2
+...
+nixpkgs.haskellPackages_ghc763.zippers
+nixpkgs.haskellPackages_ghc763.zlib
+nixpkgs.haskellPackages_ghc763.zlibBindings
+nixpkgs.haskellPackages_ghc763.zlibConduit
+nix-repl&gt; exit</code></pre>
+<p>If you are using the default version of ghc, currently 7.6.3, you can omit reference to the compiler version and install a package like <code>zippers</code> this way.</p>
+<pre><code>nix-env -iA nixpkgs.haskellPackages.zippers</code></pre>
+<h2 id="do-fork-nixpgs.">Do fork nixpgs.</h2>
+<p>Your nix installation already contains a complete copy of all the nix packages under <code>~/.nix-defexpr/channels/nixpkgs/</code>. This is called a channel, which bundles the ability to build all packages from source with the potential to install prebuilt binaries. These binaries are called a <em>substitute</em> in nix parlance and are a pure win if they are available, since your built-from-source package would be identical.</p>
+<p>You can also have your own complete set of nix packages to play with. Just fork clone the repo over at https://github.com/NixOS/nixpkgs.</p>
+<p>One reason for forking nixpkgs is that you can update the repo to obtain the very latest versions. It’s perfectly ok to install packages either from your forked repo or your nix channel.</p>
+<p>If you want run different versions of ghc there is another reason to fork. I have a fork stored at <code>/timsears/code/nixpkgs</code>. I can open nix-repl again and point to the fork.</p>
+<pre><code>nix-repl&gt; mynixpkgs = import /home/timsears/code/nixpkgs {}
+
+nix-repl&gt; mynixpkgs.haskell
+mynixpkgs.haskell
+mynixpkgs.haskellPackages
+mynixpkgs.haskellPackages_ghc6104
+mynixpkgs.haskellPackages_ghc6123
+mynixpkgs.haskellPackages_ghc704
+mynixpkgs.haskellPackages_ghc722
+mynixpkgs.haskellPackages_ghc742
+mynixpkgs.haskellPackages_ghc763
+mynixpkgs.haskellPackages_ghc783
+mynixpkgs.haskellPackages_ghc783_no_profiling
+mynixpkgs.haskellPackages_ghc783_profiling
+mynixpkgs.haskellPackages_ghcHEAD</code></pre>
+<p>Right now the list is the same as the one from my channel. But a couple of weeks ago, ghc 7.83 was only available through my forked repo.</p>
+<p>Either way, this is cool. I would not dare to support so many versions of ghc on my ubuntu dev box.</p>
+<h2 id="do-poke-around-the-nix-store.">Do poke around the nix store.</h2>
+<p><em>Everything</em> to do with building packages ends up in <code>/nix/store</code>. When you first poke around in there it is a little bewildering. Do take a few <a href="http://lethalman.blogspot.it/2014/07/nix-pill-1-why-you-should-give-it-try.html">nix pills</a> and learn what’s what. There are <code>.drv</code> files are what nix calls derivations. These files relate all the input and output files connected to building a package. All those inputs and outputs are isolated from each other and stored in their own subdirectory under <code>/nix/store</code>. Any dependencies of installed packages are there too, along with dependencies of dependencies, and so forth. You may have several version of the same package if two downstream packages need different versions. It is probably not too surprising that all the outputs are there, but what about the inputs? Why keep them? Nix keeps references to <em>everything</em> needed to build and reproduce a build exactly. Having nix know the inputs essentially provides the proof that the output will be the same. Nix can even locate binary caches of those builds if available elswhere. That’s the benefit of purity. Nix starts to look very much like a memoized Haskell function.</p>
+<h2 id="do-understand-profiles.">Do understand profiles.</h2>
+<p>There at least three “locations” to install packages in nixos: the system, user-profile and per-project.</p>
+<p><em>System level install</em>. You can add them to <code>/etc/configuration.nix</code> as I have done <a href="https://gist.github.com/timsears/46be2bc972909913770a">here</a>. This makes them available to all user profiles. There’s probably only one real user on your dev box, but this is still a useful option. For example, if you want to make use of multiple user profiles for packages that don’t play nice and don’t want to reinstall emacs everywhere this is a good option. If you prefer not to edit this file you can create a custom set of packages that every user profile can install. I won’t talk about this here and I am be interested to hear other nix users’ comments on easy ways to choose the best place for package installs.</p>
+<p><em>User profile install</em> You can also just install packages in your default profile <code>nix-env -iA nixpkgs.somePackage</code> and that’s fine. Eventually you will need to manage groups of packages that do not play nice, such as different versions of ghc and their corresponding libraries. Let’s create two new user profiles. In <code>so2013</code> we will run ghc 7.42 and in the profile <code>letitbleed</code> we will run <code>ghcHEAD</code> which corresponds to an unreleased ghc 7.9.</p>
+<p>Nix was designed by folks unafraid of long pathnames, so here’s how you are supposed to do it.</p>
+<pre><code>$ nix-env --switch-profile /nix/var/nix/profiles/per-user/timsears/so2013
+$ nix-env -q --confirm it's an empty profile
+$ nix-env -iA nixpkgs.haskellPackages_ghc742.ghc</code></pre>
+<p>Run <code>ghc --version</code> to confirm that it worked.</p>
+<p>Let’s add an old favorite, hmatrix, to the profile. It’s known to work with ghc 7.4.</p>
+<pre><code>$ nix-env -iA nixpkgs.haskellPackages.hmatrix</code></pre>
+<p>You should now be able to see something like this.</p>
+<pre><code>$ nix-env -q
+ghc-7.4.2-wrapper
+haskell-hmatrix-ghc7.4.2-0.16.0.6</code></pre>
+<p>We can now repeat the process to set up our <code>letitbleed</code> profile.</p>
+<pre><code>$ nix-env --switch-profile /nix/var/nix/profiles/per-user/timsears/letitbleed
+$ nix-env -iA nixpkgs.haskellPackages_ghcHEAD.ghc
+$ nix-env -iA nixpkgs.haskellPackages_ghcHEAD.hmatrix</code></pre>
+<p>The system responds with ~<sub>~</sub> installing <code>haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared' ... output omitted ... Creating package registration file: /nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.conf ghc-pkg: ghc no longer supports single-file style package databases (/nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.installedconf) use 'ghc-pkg init' to create the database with the correct format. [q[qbuilder for</code>/nix/store/vvf2ml647ms6c07885i190ay8b5gznhb-haskell-hscolour-ghc7.9.20141106–1.20.3-shared.drv’ failed with exit code 1 cannot build derivation <code>/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv': 1 dependencies couldn't be built error: build of</code>/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106–0.16.0.6-shared.drv’ failed ~<sub>~</sub></p>
+<p>Boom! Looks like the dependency hscolour does not install, confirming we are indeed on the bleeding edge. We’ll leave that for another day.</p>
+<p><em>Project level “installs”</em></p>
+<p>When building your own code with nix you can hide your system and user profiles to build code in a more or less clean environment using <code>nix-build</code> and <code>nix-shell</code>. You don’t really install packages, you declare dependencies. I will get into more detail in a later post.</p>
+<h1 id="next-time">Next Time</h1>
+<p>As long as this post turned out to be, it was still to short to cover how to hack on a more realistic project. For that we need to cover <code>cabal2nix</code> and be able to read and modify nix expressions. We will also need to point nix at our own source code and prevent it from doing crazy things like copying our entire git repo into the nix store.</p>
+
+
+<address class="signature">
+        <a class="author" href="http://timsears.github.io">Tim Sears</a>
+  <span class="date">December 13, 2014</span>
+  </address>
+
+</div>
+<address id="feed" class="quiet right">Subscribe: <a href="../atom.xml" title="Subscribe to Atom feed"><em>Atom Feed</em></a></address>
+
+
+<!-- Disqus Comments -->
+<div id="disqus_thread"></div>
+
+<!-- Enable Disqus comments -->
+<script type="text/javascript">
+        var disqus_iframe_css = "http://timsears.github.io/css/screen.css";
+        var disqus_title = "I am trying nix - Part 2";
+        var disqus_message = "Some nix tips";
+</script>
+<script type="text/javascript" src="http://disqus.com/forums/timsears/embed.js"></script>
+
+<noscript>
+    <a href="http://timsears.disqus.com/?url=ref">View the discussion thread.</a>
+</noscript>
+
+
+
+
+    <!-- Footer with copyright and contact information -->
+  <div id="footer">
+	<address>
+		<span class="copyright">
+			Content by Tim Sears <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(Licensed under Creative Commons)</a>
+		</span>
+		<span class="engine">
+                  Design by 
+		  <a href="http://mark.reid.name">Mark Reid</a>			Powered by 
+		  <a href="http://jaspervdj.be/hakyll/" title="A static, minimalist, Haskell-powered CMS">Hakyll</a>
+		</span>
+	</address>
+  </div>
+
+</div>
+
+
+<!-- Google Analytics script -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54483715-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+</body>
+</html>
+
+
+
