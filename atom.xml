@@ -151,7 +151,15 @@ haskell-hmatrix-ghc7.4.2-0.16.0.6</code></pre>
 <pre><code>$ nix-env --switch-profile /nix/var/nix/profiles/per-user/timsears/letitbleed
 $ nix-env -iA nixpkgs.haskellPackages_ghcHEAD.ghc
 $ nix-env -iA nixpkgs.haskellPackages_ghcHEAD.hmatrix</code></pre>
-<p>The system responds with ~<sub>~</sub> installing <code>haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared' ... output omitted ... Creating package registration file: /nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.conf ghc-pkg: ghc no longer supports single-file style package databases (/nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.installedconf) use 'ghc-pkg init' to create the database with the correct format. [q[qbuilder for</code>/nix/store/vvf2ml647ms6c07885i190ay8b5gznhb-haskell-hscolour-ghc7.9.20141106–1.20.3-shared.drv’ failed with exit code 1 cannot build derivation <code>/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv': 1 dependencies couldn't be built error: build of</code>/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106–0.16.0.6-shared.drv’ failed ~<sub>~</sub></p>
+<p>The system responds with</p>
+<pre><code>installing `haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared&#39;
+... output omitted ...
+Creating package registration file:
+/nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.conf
+ghc-pkg: ghc no longer supports single-file style package databases (/nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.installedconf) use &#39;ghc-pkg init&#39; to create the database with the correct format.
+[q[qbuilder for `/nix/store/vvf2ml647ms6c07885i190ay8b5gznhb-haskell-hscolour-ghc7.9.20141106-1.20.3-shared.drv&#39; failed with exit code 1
+cannot build derivation `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv&#39;: 1 dependencies couldn&#39;t be built
+error: build of `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv&#39; failed</code></pre>
 <p>Boom! Looks like the dependency hscolour does not install, confirming we are indeed on the bleeding edge. We’ll leave that for another day.</p>
 <p><em>Project level “installs”</em></p>
 <p>When building your own code with nix you can hide your system and user profiles to build code in a more or less clean environment using <code>nix-build</code> and <code>nix-shell</code>. You don’t really install packages, you declare dependencies. I will get into more detail in a later post.</p>
