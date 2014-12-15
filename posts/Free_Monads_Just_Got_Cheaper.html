@@ -88,7 +88,7 @@ last []          =  error &quot;Prelude.last: empty list&quot;</code></pre>
 <p>Instances of type class Monad can be thought of as trees describing ‘computations’. The Monad interface provides a way to graft subtrees into trees. There are as many types of ‘computation’ as there are interpreters for tree structures. In practice the interpretation is interleaved with the graft operation so that we don’t have separate tree-building and interpretation phases.</p>
 </blockquote>
 <p>The grafting mentioned requires traversals just like in the simple example above, and it can lead to inefficiencies if they are nested the “wrong” way. Same as before, the meaning of the computation is not affected since the same tree can be built in multiple ways, thanks to the monadic version of the associative law:</p>
-<pre class="haskell"><code>(m &gt;&gt;= f) &gt;&gt;= g  ==  m &gt;&gt;= (\x -&gt; f x &gt;&gt;= g) </code></pre>
+<pre class="haskell"><code>(m &gt;&gt;= f) &gt;&gt;= g  ==  m &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)</code></pre>
 <p>The analogy between <code>++</code> and <code>&gt;&gt;=</code> is hopefully clear even though an abstraction (that lambda) is introduced.</p>
 <p>So, what does the RWR solution do about all these equivalent trees? It took me a couple of times reading the paper for the solution to start to sink in. Feeling rather dense, I remembered this:</p>
 <blockquote>
@@ -105,7 +105,7 @@ last []          =  error &quot;Prelude.last: empty list&quot;</code></pre>
 <p>That plan plays out in the example below, a tiny imperative DSL that gives us an imperative robot control language with just three commands: go left, go right, and stop (forever). They appear as the constructors of <code>FDirective</code>.</p>
 <pre class="haskell"><code>import qualified Control.Monad.Free as F
 
--- Commands, for 
+-- Commands, for
 data FDirective next = FL next | FR next | FS
   deriving (Functor, Show)</code></pre>
 <p>With just one more line we can make a free monad out of our data type, and then add a little syntactic sugar (<code>left'</code>, <code>right'</code>, <code>shutdown'</code>) so our program will look nice.</p>
@@ -130,7 +130,7 @@ instrs' = do
   left'
   shutdown'</code></pre>
 <p>How much work is it to apply the RWR solution? Not that much. I modified the code from the example above and followed the suggestion of using the <code>LANGUAGE ViewPatterns</code> pragma to make the code even easier to look at. Here’s the result.</p>
-<pre class="haskell"><code>type FM a = FreeMonad FDirective a 
+<pre class="haskell"><code>type FM a = FreeMonad FDirective a
 
 interpret :: FM a -&gt; IO ()
 interpret (toView -&gt; Impure (FL f)) =
@@ -140,16 +140,16 @@ interpret (toView -&gt; Impure (FR f)) =
 interpret (toView -&gt; Impure FS) = putStrLn &quot;Saw shutdown, stopping&quot;
 interpret (toView -&gt; Pure _ )  = error &quot;Improper termination&quot;
 
-left :: FreeMonad FDirective () 
+left :: FreeMonad FDirective ()
 left = liftF $ FL () -- same as `fromView $ Impure FR``
 right = liftF $ FR ()
 shutdown = liftF $ FS
 
-liftF :: Functor f =&gt; f a -&gt; FreeMonad f a 
+liftF :: Functor f =&gt; f a -&gt; FreeMonad f a
 liftF x = fromView $ Impure (fmap return x)
 
 instrs :: FM ()
-instrs = 
+instrs =
  do left
     right
     left
@@ -173,7 +173,7 @@ newtype FC f a b = FC (a -&gt; FreeMonad f b)
 
 type FMExp f a b = TCQueue (FC f) a b
 
-data FreeMonad f a = 
+data FreeMonad f a =
    forall x. FM (FreeMonadView f x) (FMExp f x a)
 
 data FreeMonadView f a 	= Pure a | Impure (f (FreeMonad f a))</code></pre>
@@ -186,7 +186,7 @@ data FreeMonadView f a 	= Pure a | Impure (f (FreeMonad f a))</code></pre>
 
 <address class="signature">
         <a class="author" href="http://timsears.github.io">Tim Sears</a>
-  <span class="date">September  8, 2014</span>
+  <span class="date">September  9, 2014</span>
   </address>
 
 </div>
