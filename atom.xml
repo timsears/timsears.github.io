@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Either a Blog</title>
-    <link href="http://timsears.github.io/atom.xml" rel="self" />
-    <link href="http://timsears.github.io" />
-    <id>http://timsears.github.io/atom.xml</id>
+    <link href="http://blog.timsears.com/atom.xml" rel="self" />
+    <link href="http://blog.timsears.com" />
+    <id>http://blog.timsears.com/atom.xml</id>
     <author>
         <name>Tim Sears</name>
         <email>tim@timsears.com</email>
@@ -11,8 +11,8 @@
     <updated>2014-12-13T00:00:00Z</updated>
     <entry>
     <title>I am trying nix - Part 2</title>
-    <link href="http://timsears.github.io/posts/morenix.html" />
-    <id>http://timsears.github.io/posts/morenix.html</id>
+    <link href="http://blog.timsears.com/posts/morenix.html" />
+    <id>http://blog.timsears.com/posts/morenix.html</id>
     <published>2014-12-13T00:00:00Z</published>
     <updated>2014-12-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>This is an update on how I am getting along with nixos/nix since <a href="http://blog.timsears.com/posts/im_trying_nix.html">last time</a>. At that point I had only installed nixos, added a few essential packages and even started editing and generating this blog on the new system. Now I want to play around with bleeding edge Haskell code and not pay a heavy price in terms of system configuration. If I can continue on from there to develop production code I will consider the experiment a success and may migrate to using nixos full-time.</p>
@@ -177,8 +177,8 @@ error: build of `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc
 </entry>
 <entry>
     <title>I am trying nixos</title>
-    <link href="http://timsears.github.io/posts/im_trying_nix.html" />
-    <id>http://timsears.github.io/posts/im_trying_nix.html</id>
+    <link href="http://blog.timsears.com/posts/im_trying_nix.html" />
+    <id>http://blog.timsears.com/posts/im_trying_nix.html</id>
     <published>2014-10-16T00:00:00Z</published>
     <updated>2014-10-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<h1 id="my-setup">My setup<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h1>
@@ -407,8 +407,8 @@ haskellPackages.cabal.mkDerivation (self: {
 </entry>
 <entry>
     <title>Free Monads Just Got Cheaper</title>
-    <link href="http://timsears.github.io/posts/Free_Monads_Just_Got_Cheaper.html" />
-    <id>http://timsears.github.io/posts/Free_Monads_Just_Got_Cheaper.html</id>
+    <link href="http://blog.timsears.com/posts/Free_Monads_Just_Got_Cheaper.html" />
+    <id>http://blog.timsears.com/posts/Free_Monads_Just_Got_Cheaper.html</id>
     <published>2014-09-09T00:00:00Z</published>
     <updated>2014-09-09T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>One of the more exciting papers I have read recently is <a href="http://homepages.cwi.nl/~ploeg/papers/zseq.pdf">“Reflection without Remorse: Revealing a hidden sequence to speed up monad reflection”</a> by Ploeg &amp; Kiselyov. It was presented at ICFP by one of the authors and the video is <a href="https://www.youtube.com/watch?v=_XoI65Rxmss">here</a>. The paper, hereafter referred to as RWR, provides fiendishly a clever way to speed up the performance of programs that are structured using monads. In Haskell, that means lots of programs. Half algorithm, half technique, the paper presents a number of applications to specific monads. I was particularly interested in the case of free monads, which is covered in this post.</p>
@@ -531,8 +531,8 @@ data FreeMonadView f a 	= Pure a | Impure (f (FreeMonad f a))</code></pre>
 </entry>
 <entry>
     <title>Predictions from the Past, Hope for the Futurist</title>
-    <link href="http://timsears.github.io/posts/Predictions_from_the_Past.html" />
-    <id>http://timsears.github.io/posts/Predictions_from_the_Past.html</id>
+    <link href="http://blog.timsears.com/posts/Predictions_from_the_Past.html" />
+    <id>http://blog.timsears.com/posts/Predictions_from_the_Past.html</id>
     <published>2014-07-24T00:00:00Z</published>
     <updated>2014-07-24T00:00:00Z</updated>
     <summary type="html"><![CDATA[<p>Nobody can deny the huge impact that technology has had on many areas of work, play, and family. Entire industries have been born, prospered, and died all within in a few years (remember Blockbuster?). These days, the only thing that may be surprising is how small the impact has been had on a few nooks and crannies of the economy and life. But hang on a decade, will you? 3D printers, drones and immersive displays are just getting started.</p>
