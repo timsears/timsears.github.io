@@ -109,8 +109,8 @@
 <h2 id="do-install-nix-repl.">Do install nix-repl.</h2>
 <p>It is as easy as</p>
 <pre><code>nix-env -iA nixpkgs.nix-repl</code></pre>
-<p>Having the repl available does a number of things for you. First, since nix uses the nix expression language for all its build recipes, nix-repl is like ghci for that language. You can play around with simple expressions to get used to the languaga. That will come in handy later.</p>
-<p>nix-repl is also handy for inspecting availble packages. Try this…</p>
+<p>Having the repl available does a number of things for you. First, since nix uses the nix expression language for all its build recipes, nix-repl is like ghci for that language. You can play around with simple expressions to get used to the language. That will come in handy later.</p>
+<p>nix-repl is also handy for inspecting available packages. Try this…</p>
 <pre><code>$ nix-repl
 nix-repl&gt; nixpkgs = import &lt;nixpkgs&gt;
 nix-repl&gt; :a builtins
@@ -140,7 +140,7 @@ nixpkgs.haskellPackages_ghc783_no_profiling
 nixpkgs.haskellPackages_ghc783_profiling
 nixpkgs.haskellPackages_ghcHEAD
 nix-repl&gt; exit</code></pre>
-<p>This shows all the versions of ghc available including the latest bleeding edge version. The default is currrently 7.63 and ghcHEAD corresponds to an unreleased version of ghc. Many of these also have binary cached versions availablle, which install much faster and are exactly what you would get if you built them yourself.</p>
+<p>This shows all the versions of ghc available including the latest bleeding edge version. The default is currrently 7.63 and ghcHEAD corresponds to an unreleased version of ghc. Many of these also have binary cached versions available, which install much faster and are exactly what you would get if you built them yourself.</p>
 <p>You can also hunt specifically for Haskell packages. Let’s see what’s available for ghc 7.6.3.</p>
 <pre><code>$ nix-repl
 nix-repl&gt; nixpkgs.haskellPackages_ghc763.&lt;TAB&gt;
@@ -169,7 +169,7 @@ nix-repl&gt; exit</code></pre>
 <p>Your nix installation already contains a complete copy of all the nix packages under <code>~/.nix-defexpr/channels/nixpkgs/</code>. This is called a channel, which bundles the ability to build all packages from source with the potential to install prebuilt binaries. These binaries are called a <em>substitute</em> in nix parlance and are a pure win if they are available, since your built-from-source package would be identical.</p>
 <p>You can also have your own complete set of nix packages to play with. Just fork clone the repo over at <a href="https://github.com/NixOS/nixpkgs">https://github.com/NixOS/nixpkgs</a>.</p>
 <p>One reason for forking nixpkgs is that you can update the repo to obtain the very latest versions. It’s perfectly ok to install packages either from your forked repo or your nix channel.</p>
-<p>If you want run different versions of ghc there is another reason to fork. I have a fork stored at <code>/timsears/code/nixpkgs</code>. I can open nix-repl again and point to the fork.</p>
+<p>If you want to run different versions of ghc there is another reason to fork. I have a fork stored at <code>/timsears/code/nixpkgs</code>. I can open nix-repl again and point to the fork.</p>
 <pre><code>nix-repl&gt; mynixpkgs = import /home/timsears/code/nixpkgs {}
 
 nix-repl&gt; mynixpkgs.haskell
@@ -188,11 +188,11 @@ mynixpkgs.haskellPackages_ghcHEAD</code></pre>
 <p>Right now the list is the same as the one from my channel. But a couple of weeks ago, ghc 7.83 was only available through my forked repo.</p>
 <p>Either way, this is cool. I would not dare to support so many versions of ghc on my ubuntu dev box.</p>
 <h2 id="do-poke-around-the-nix-store.">Do poke around the nix store.</h2>
-<p><em>Everything</em> to do with building packages ends up in <code>/nix/store</code>. When you first poke around in there it is a little bewildering. Do take a few <a href="http://lethalman.blogspot.it/2014/07/nix-pill-1-why-you-should-give-it-try.html">nix pills</a> and learn what’s what. There are <code>.drv</code> files are what nix calls derivations. These files relate all the input and output files connected to building a package. All those inputs and outputs are isolated from each other and stored in their own subdirectory under <code>/nix/store</code>. Any dependencies of installed packages are there too, along with dependencies of dependencies, and so forth. You may have several version of the same package if two downstream packages need different versions. It is probably not too surprising that all the outputs are there, but what about the inputs? Why keep them? Nix keeps references to <em>everything</em> needed to build and reproduce a build exactly. Having nix know the inputs essentially provides the proof that the output will be the same. Nix can even locate binary caches of those builds if available elswhere. That’s the benefit of purity. Nix starts to look very much like a memoized Haskell function.</p>
+<p><em>Everything</em> to do with building packages ends up in <code>/nix/store</code>. When you first poke around in there it is a little bewildering. Do take a few <a href="http://lethalman.blogspot.it/2014/07/nix-pill-1-why-you-should-give-it-try.html">nix pills</a> and learn what’s what. The <code>.drv</code> files there are what nix calls derivations. These files relate all the input and output files connected to building a package. All those inputs and outputs are isolated from each other and stored in their own subdirectory under <code>/nix/store</code>. Any dependencies of installed packages are there too, along with dependencies of dependencies, and so forth. You may have several versions of the same package if two downstream packages need different versions. It is probably not too surprising that all the outputs are there, but what about the inputs? Why keep them? Nix keeps references to <em>everything</em> needed to build and reproduce a build exactly. Having nix know the inputs essentially provides the proof that the output will be the same. Nix can even locate binary caches of those builds if available elswhere. That’s the benefit of purity. Nix starts to look very much like a memoized Haskell function.</p>
 <h2 id="do-understand-profiles.">Do understand profiles.</h2>
 <p>There at least three “locations” to install packages in nixos: the system, user-profile and per-project.</p>
 <h3 id="system-level-install.">System level install.</h3>
-<p>You can add packages to <code>/etc/configuration.nix</code> as I have done <a href="https://gist.github.com/timsears/46be2bc972909913770a">here</a>. This makes them available to all user profiles. There’s probably only one real user on your dev box, but this is still a useful option. For example, you may want to make want to have multiple user profiles to segregate packages that don’t play nice and you don’t want to reinstall packages like emacs everywhere. If you prefer not to edit this file you can create a custom set of packages that every user profile can install. I won’t talk about this further here, but I am be interested to hear other nix users’ comments on easy ways to manage sets of common packages.</p>
+<p>You can add packages to <code>/etc/configuration.nix</code> as I have done <a href="https://gist.github.com/timsears/46be2bc972909913770a">here</a>. This makes them available to all user profiles. There’s probably only one real user on your dev box, but this is still a useful option. For example, you may want to have multiple user profiles to segregate packages that don’t play nice and you don’t want to reinstall packages like emacs everywhere. If you prefer not to edit this file you can create a custom set of packages that every user profile can install. I won’t talk about this further here, but I am interested to hear other nix users’ comments on easy ways to manage sets of common packages.</p>
 <h3 id="user-profile-installs">User profile installs</h3>
 <p>You can also install packages in your default profile <code>nix-env -iA nixpkgs.somePackage</code> and that’s fine. Eventually you will need to manage groups of packages that do not play nice, such as different versions of ghc and their corresponding libraries. Let’s create two new user profiles. In <code>so2013</code> we will run ghc 7.42 and in the profile <code>letitbleed</code> we will run <code>ghcHEAD</code> which corresponds to an unreleased ghc 7.9.</p>
 <p>Nix was designed by folks unafraid of long pathnames, so here’s how you are supposed to do it.</p>
@@ -223,7 +223,7 @@ error: build of `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc
 <h3 id="project-level-installs">Project level installs</h3>
 <p>When building your own code with nix you can hide your system and user profiles to build code in a more or less clean environment using <code>nix-build</code> and <code>nix-shell</code>. You don’t really install packages, you declare dependencies. I will get into more detail in a later post.</p>
 <h1 id="next-time">Next Time</h1>
-<p>As long as this post turned out to be, it was still to short to cover how to hack on a more realistic project. For that we need to cover <code>cabal2nix</code> and be able to read and modify nix expressions. We will also need to point nix at our own source code and prevent it from doing crazy things like copying our entire git repo into the nix store.</p>
+<p>As long as this post turned out to be, it was still too short to cover how to hack on a more realistic project. For that we need to cover <code>cabal2nix</code> and be able to read and modify nix expressions. We will also need to point nix at our own source code and prevent it from doing crazy things like copying our entire git repo into the nix store.</p>
 
 
 <address class="signature">
