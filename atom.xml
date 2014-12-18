@@ -165,7 +165,7 @@ $ nix-env -iA nixpkgs.haskellPackages_ghcHEAD.hmatrix</code></pre>
 Creating package registration file:
 /nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.conf
 ghc-pkg: ghc no longer supports single-file style package databases (/nix/store/d0wccnkgjgxikh1l4hs9c3s4jnyqfzgq-haskell-hscolour-ghc7.9.20141106-1.20.3-shared/lib/ghc-7.9.20141106/package.conf.d/hscolour-1.20.3.installedconf) use &#39;ghc-pkg init&#39; to create the database with the correct format.
-[q[qbuilder for `/nix/store/vvf2ml647ms6c07885i190ay8b5gznhb-haskell-hscolour-ghc7.9.20141106-1.20.3-shared.drv&#39; failed with exit code 1
+[qbuilder for `/nix/store/vvf2ml647ms6c07885i190ay8b5gznhb-haskell-hscolour-ghc7.9.20141106-1.20.3-shared.drv&#39; failed with exit code 1
 cannot build derivation `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv&#39;: 1 dependencies couldn&#39;t be built
 error: build of `/nix/store/0b0dgss2dpl0vnfqmvdnbr66n4vzk3g7-haskell-hmatrix-ghc7.9.20141106-0.16.0.6-shared.drv&#39; failed</code></pre>
 <p>Boom! Looks like the dependency hscolour does not install, confirming we have indeed arrived on the bleeding edge. We’ll leave that for another day.</p>
