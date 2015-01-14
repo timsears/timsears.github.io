@@ -1,5 +1,6 @@
 // The source feeds (must be Atom or RSS based)
 var feeds = [
+     // Haskell-related blogs
     'http://blog.sigfpe.com/feeds/posts/default',
     'http://comonad.com/reader/feed/',
     'http://neilmitchell.blogspot.com/feeds/posts/default',
@@ -7,6 +8,8 @@ var feeds = [
     'http://wadler.blogspot.com/atom.xml',
     'http://feeds.feedburner.com/RomanCheplyaka',
     'http://gelisam.blogspot.com/feeds/posts/default',
+    'http://chris-taylor.github.io/atom.xml',
+     // Machine Learning -related blogs
     'http://mark.reid.name/blog/',
     'http://blog.smola.org/rss',
     'http://hunch.net/?feed=rss',
@@ -21,5 +24,5 @@ var feeds = [
     'http://brenocon.com/blog/feed/',
     'http://blog.oddhead.com/feed/',
     'http://bactra.org/weblog/index.rss',
-    'http://andrewgelman.com/feed/'
+    // 'http://andrewgelman.com/feed/'
 ];
