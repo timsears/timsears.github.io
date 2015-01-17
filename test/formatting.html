@@ -5,7 +5,7 @@
 
    <!-- Standard site meta information -->
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>This is a “Test” blog post. </br> Modified slightly from Mark Reid's original. ← Either a Blog ← Tim Sears</title>
+   <title>This is a “Test” blog post. </br> Modified slightly from Mark Reid's original. &larr; Either a Blog &larr Tim Sears</title>
    <meta name="author" content="Tim" Sears />
 
    <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
@@ -25,7 +25,7 @@
  	<meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@timothydsears">
     <meta name="twitter:site" content="@timothydsears">
-    <meta name="twitter:title" content="This is a “Test” blog post. &lt;/br&gt; Modified slightly from Mark Reid's original.">
+    <meta name="twitter:title" content="This is a “Test” blog post. </br> Modified slightly from Mark Reid's original.">
     <meta name="twitter:description" content="A post that works out all of the formatting options and provides a record of how to add figures, quotes, etc.">
 
 <!-- MathJax configuration and loading -->
@@ -51,8 +51,8 @@
 <div id="site">
   <div id="header">
 <h1>
-	<a href="../" title="Maybe Blog?">Either a Blog</a>
-	<span class="byline">← <a href="../">Tim Sears</a></span>
+	<a href="../" title="Maybe Blog? :-)">Either a Blog</a>
+	<span class="byline">&larr; <a href="../">Tim Sears</a></span>
 </h1>
 <ul class="nav">
   <li><a class="home" href="../">Home</a></li>
@@ -78,14 +78,9 @@
 	&lt;dt&gt;&lt;p&gt;_Figure 1 (alt)_: This is a description list figure.&lt;/p&gt;&lt;/dt&gt;
 &lt;/dl&gt;</code></pre>
 <dl class="figure">
-	<dd>
-<img src="../images/research.png" alt="Alt. text" />
-</dd>
-	<dt><p>
-<em>Figure 1 (alt)</em>: This is a description list figure.
-</p></dt>
+<pre><code>&lt;dd&gt;![Alt. text](/images/research.png)&lt;/dd&gt;
+&lt;dt&gt;&lt;p&gt;_Figure 1 (alt)_: This is a description list figure.&lt;/p&gt;&lt;/dt&gt;</code></pre>
 </dl>
-
 <p>The second option allows more flexibility since the images can be made into links, and multiple images can be added to the same figure.</p>
 <h3 id="no-stretching">No Stretching</h3>
 <p>By default, figures are stretched to 95% of the text width. This can be suppressed by surrounding the figure in a <code>div</code> with class <code>nostretch</code>:</p>

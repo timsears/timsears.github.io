@@ -5,7 +5,7 @@
 
    <!-- Standard site meta information -->
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>I am trying nix - Part 2 ← Either a Blog ← Tim Sears</title>
+   <title>I am trying nix - Part 2 &larr; Either a Blog &larr Tim Sears</title>
    <meta name="author" content="Tim" Sears />
 
    <!--link rel='openid.server' href='http://www.myopenid.com/server' / -->
@@ -51,8 +51,8 @@
 <div id="site">
   <div id="header">
 <h1>
-	<a href="../" title="Maybe Blog?">Either a Blog</a>
-	<span class="byline">← <a href="../">Tim Sears</a></span>
+	<a href="../" title="Maybe Blog? :-)">Either a Blog</a>
+	<span class="byline">&larr; <a href="../">Tim Sears</a></span>
 </h1>
 <ul class="nav">
   <li><a class="home" href="../">Home</a></li>
@@ -167,7 +167,7 @@ nix-repl&gt; exit</code></pre>
 <pre><code>nix-env -iA nixpkgs.haskellPackages.zippers</code></pre>
 <h2 id="do-fork-nixpgs.">Do fork nixpgs.</h2>
 <p>Your nix installation already contains a complete copy of all the nix packages under <code>~/.nix-defexpr/channels/nixpkgs/</code>. This is called a channel, which bundles the ability to build all packages from source with the potential to install prebuilt binaries. These binaries are called a <em>substitute</em> in nix parlance and are a pure win if they are available, since your built-from-source package would be identical.</p>
-<p>You can also have your own complete set of nix packages to play with. Just fork clone the repo over at <a href="https://github.com/NixOS/nixpkgs">https://github.com/NixOS/nixpkgs</a>.</p>
+<p>You can also have your own complete set of nix packages to play with. Just fork clone the repo over at <a href="https://github.com/NixOS/nixpkgs" class="uri">https://github.com/NixOS/nixpkgs</a>.</p>
 <p>One reason for forking nixpkgs is that you can update the repo to obtain the very latest versions. It’s perfectly ok to install packages either from your forked repo or your nix channel.</p>
 <p>If you want to run different versions of ghc there is another reason to fork. I have a fork stored at <code>/timsears/code/nixpkgs</code>. I can open nix-repl again and point to the fork.</p>
 <pre><code>nix-repl&gt; mynixpkgs = import /home/timsears/code/nixpkgs {}

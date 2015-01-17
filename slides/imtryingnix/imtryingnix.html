@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>I am trying nixos</title>
+
+<meta name="description" content="I am trying nixos">
+
+  <meta name="author" content="Tim Sears" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="../reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="../reveal.js/css/theme/black.css" id="theme">
+<link href="../reveal.js/reveal.user.css" rel="stylesheet" type="text/css">
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="../reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>I am trying nixos</h1>
+<h3>Tim Sears</h3>
+<p>
+<h4>October 16, 2014</h4>
+</p>
+</section>
+
+
+<!--
+Build Notes. Need pandoc, revealjs, plus a custom template in reveal.js/. That's it.
+
+Adapted from a blog piece, which was adapted from an older presentation.
+
+$ pandoc -t html5 -V revealjs-url=./reveal.js --section-divs --no-highlight -V hlss=zenburn --template=reveal.js/template-revealjs.html  -V theme=black imtryingnix_revealjs.md -o imtryingnix.html
+Must have reveal.js (directory) as a sub directory.
+Must have template file in reveal.js. It's not distributed with reveal.js (Checking it into a branch of my fork)
+-->
+<style type="text/css">
+p { text-align: left; }
+/*
+.reveal .slide h1 { font-size: 90%; text-decoration: underline; }
+.reveal .slide h2 { font-size: 80%; text-decoration: underline; }
+*/
+</style>
+<section id="my-setup" class="level2">
+<h2>My setup</h2>
+<section id="i-have-been-running-ubuntu-12.04-on-vmware-fusion." class="level3">
+<h3>I have been running ubuntu 12.04 on VMWare Fusion.</h3>
+<p>I started using nixos on October 6th.</p>
+<p><em>That's just 10 days ago.</em></p>
+</section>
+<section id="section" class="level3">
+<h3></h3>
+<p><em>So all opinions herein are subject to change.</em></p>
+</section>
+</section>
+<section id="my-current-setup" class="level2">
+<h2>My current setup</h2>
+</section>
+<section id="has-its-pluses..." class="level2">
+<h2>has its pluses...</h2>
+<ul>
+<li>Ubuntu is very stable, never crashes. I have never felt pressure to upgrade from 12.04.</li>
+<li>Security upgrades have never broken anything.</li>
+<li><code>sudo apt-get install somepackage</code> rarely fails to provide what I need. xs</li>
+<li>Binary/libc compatible with our servers in the cloud. Easy deployment on minimially configured production box.</li>
+</ul>
+</section>
+<section id="and-its-minuses" class="level2">
+<h2>...and its minuses</h2>
+<ul>
+<li>ghc is <em>always</em> behind in the package manager (ubuntu 12.04 ~ ghc 7.4). I want to work on projects that require ghc 7.8.</li>
+<li>My dev box is used for building production code.</li>
+<li>Only <em>my</em> code is should break a build. Therefore I don't want to install software that could break my code.</li>
+<li>Setting up a dev box for a new person requires reading lots of old and potentially outdated notes to collect and install all sorts of dependencies together on a new box.</li>
+<li>The new cabal sandboxes work, but lots of code gets recompiled and reinstalled on every project.</li>
+<li>It's &quot;hard&quot; to run multiple versions of ghc. (I might just be lazy here.)</li>
+</ul>
+</section>
+<section id="some-suggestions-i-have-heard" class="level2">
+<h2>Some suggestions I have heard</h2>
+<section id="section-1" class="level3">
+<h3></h3>
+<blockquote>
+<p>&quot;Bro, you're running a mac. Just use brew.&quot;</p>
+</blockquote>
+<p>I have tried everything on mac. Remember fink, ports?</p>
+<p>brew is great. It makes make osx 95% like linux.</p>
+<p>(Not nearly close enough for me.)</p>
+</section>
+<section id="section-2" class="level3">
+<h3></h3>
+<blockquote>
+<p>&quot;Dude, you like the bleeding edge.<br /> Try Arch.&quot;</p>
+</blockquote>
+<p>No, it just looks that way because I use Haskell. :-)</p>
+<p>I did run Arch for over a year. Arch is fun, has a great community and a fantastic wiki...</p>
+<p>...but if you want to update one thing you need to update everything. You tend to run only the latest software and it is hard to roll back.</p>
+<p>I broke my system more than once.</p>
+</section>
+</section>
+<section id="why-nixos" class="level2">
+<h2>Why Nixos?</h2>
+<section id="section-3" class="level3">
+<h3></h3>
+</section>
+<section id="as-a-haskeller-how-could-i-resist-this-kind-of-marketing" class="level3">
+<h3>As a Haskeller how could I resist this kind of marketing?</h3>
+<p>&quot;Nixos: The <strong>Purely Functional</strong> Linux Distribution*</p>
+</section>
+<section id="section-4" class="level3">
+<h3></h3>
+<p>&quot;But wait there's more!&quot;</p>
+</section>
+<section id="section-5" class="level3">
+<h3></h3>
+<p>&quot;Nixos is built on top of the Nix package manager, and is <em>completely declarative</em>&quot;</p>
+</section>
+<section id="whoa-sold." class="level3" bg_color="skyblue">
+<h3>Whoa, sold.</h3>
+<figure>
+<img src="images/sold.gif" />
+</figure>
+</section>
+</section>
+<section id="what-this-means" class="level2">
+<h2>What this means</h2>
+<section id="section-6" class="level3">
+<h3></h3>
+<p>The potential for...</p>
+<ul>
+<li>Alternative environments residing safely on the same box.</li>
+<li>Encoding the configuration of a development box suitable for my company's project.</li>
+<li><em>Calculating</em> an entire machine configuration and deploy it to the cloud. (nixops)</li>
+<li>Specifying all dependencies for a project so that another dev can install it in one step.</li>
+</ul>
+</section>
+<section id="lets-try-it-out..." class="level3">
+<h3>Let's try it out...</h3>
+</section>
+</section>
+<section id="install" class="level2">
+<h2>Install</h2>
+<section id="section-7" class="level3">
+<h3></h3>
+<p>Boot a new machine from a .iso file, then...</p>
+<pre><code>$ fdisk /dev/sda # enter options n,p,1,w in sequence
+$ mkfs.ext4 -j -L nixos /dev/sda1
+$ mount LABEL=nixos /mnt
+$ nixos-generate-config --root /mnt
+$ nano /mnt/etc/nixos/configuration.nix # copy/paste a configuration.nix.
+$ nixos-install
+$ reboot</code></pre>
+<p>While it is truly possible to get a system going in one step, I edited the configuration about 20 times before I had it just right for my dev box. If you break something the old configuration is still available from the boot menu. Tweaking is nearly risk-free.</p>
+</section>
+<section id="section-8" class="level3">
+<h3></h3>
+<p>Here's my config file...</p>
+<pre><code>[timsears@nixos:~/blog/drafts]$ cat /etc/nixos/configuration.nix
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
+
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  # Define on which hard drive you want to install Grub.
+  boot.loader.grub.device = &quot;/dev/sda&quot;;
+
+  swapDevices = [ { device = &quot;/swapfile1&quot;; } ];
+
+  networking.hostName = &quot;nixos&quot;; # Define your hostname.
+  # networking.wireless.enable = true;  # I&#39;m on a vm. Not needed.
+
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = &quot;lat9w-16&quot;;
+    consoleKeyMap = &quot;us&quot;;
+    defaultLocale = &quot;en_US.UTF-8&quot;;
+  };
+
+  environment.systemPackages = with pkgs; [
+    (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
+     wget
+     curl
+     emacs
+     xlibs.xmessage
+     xfce.terminal
+   ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  time.timeZone = &quot;US/Pacific&quot;;
+  security.sudo.wheelNeedsPassword = false;
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  services.xserver = { displayManager.slim.autoLogin = true;
+                       displayManager.slim.defaultUser = &quot;timsears&quot;;
+                       windowManager.awesome.enable = true;
+                       windowManager.default = &quot;awesome&quot;;
+                       # only seem to affect login screen
+                       virtualScreen = { x = 1920; y = 1200; };
+                       resolutions = [{ x = 1920; y = 1200; }] ;
+                       enable = true;
+                       layout = &quot;us&quot;;
+                        };
+
+  # Define a user account. Don&#39;t forget to set a password with ‘passwd’.
+  users.extraUsers.guest = {
+    name = &quot;timsears&quot;;
+    group = &quot;users&quot;;
+    extraGroups = [&quot;wheel&quot;];
+    uid = 1000;
+    createHome = true;
+    home = &quot;/home/timsears&quot;;
+    shell = &quot;/run/current-system/sw/bin/bash&quot;;
+   };
+}</code></pre>
+</section>
+</section>
+<section id="configure" class="level2">
+<h2>Configure</h2>
+<section id="there-are-at-least-three-levels-of-configuration." class="level3">
+<h3>There are at least three levels of configuration.</h3>
+</section>
+<section id="global" class="level3">
+<h3>Global</h3>
+<pre><code>nano /etc/nixos/configuration.nix # make changes
+nixos-rebuild switch</code></pre>
+<p>It's really about that simple.</p>
+</section>
+<section id="user-profiles" class="level3">
+<h3>User profiles</h3>
+<p>You are encouraged to install software as a user with</p>
+<pre><code>`nix-env -i somepackage`</code></pre>
+<p>See installed packages with <code>nix-env -q</code>.</p>
+<p>Here's mine so far...</p>
+<pre><code>cabal-install-1.16.0.2
+cabal2nix-1.61
+chromium-stable-with-plugins-35.0.1916.114
+ghc-7.6.3-wrapper
+git-1.9.4
+gnome-terminal-3.10.2
+haskell-hakyll-ghc7.6.3-4.5.1.0
+haskell-haskell-platform-ghc7.6.3-2013.2.0.0
+haskell-hoogle-ghc7.6.3-4.2.32
+hasktags-0.68.7
+nix-repl-1.7-1734e8a
+structured-haskell-mode-1.0.2
+w3m-0.5.3
+xkill-1.0.4
+xpdf-3.03</code></pre>
+<p>Eventually I will convert that to a nix expression. I expect to write a few custon expressions to install the odd missing package (like easyVision).</p>
+<p>You can have multiple profiles per user. (I haven't used that feature yet.)</p>
+</section>
+<section id="project-level" class="level3">
+<h3>Project-level</h3>
+<p>This is a major win, unique to nix.</p>
+<p>You can customize the build environment for each project.</p>
+<p>You can put a nix expression in a project directory.</p>
+</section>
+<section id="project-level-1" class="level3">
+<h3>Project-level</h3>
+<p>Here's a file that lives in a project I have been working on: <code>~/timsears/code/probmonad/default.nix</code>.</p>
+<p>This corresponds 1-to-1 with a <code>.cabal</code> file:</p>
+<pre><code>{ pkgs ? (import &lt;nixpkgs&gt; {})
+ #, haskellPackages ? pkgs.haskellPackages_ghc763
+, haskellPackages ? pkgs.haskellPackages_ghc782
+}:
+
+let inherit (haskellPackages) cabal cabalInstall
+    distributive comonad; # Haskell dependencies here
+in
+
+haskellPackages.cabal.mkDerivation (self: {
+  pname = &quot;probmonad&quot;;
+  version = &quot;0.1.0.0&quot;;
+  src = &quot;./.&quot;;
+  isLibrary = false;
+  isExecutable = true;
+  buildTools = with haskellPackages; [cabalInstall];
+  buildDepends = with haskellPackages; [ comonad distributive];
+  meta = {
+    license = self.stdenv.lib.licenses.gpl3;
+    platforms = self.ghc.meta.platforms;
+  };
+  noHaddock = true;
+})</code></pre>
+</section>
+</section>
+<section id="why-this-is-great" class="level2" fragment="fade-in" target="p">
+<h2>Why this is great</h2>
+<p>The default.nix file is mostly generated by a utility <code>cabal2nix</code>.</p>
+<p>I can comment out one line to switch ghc versions distributions. I just enter <code>nix-shell</code> to drop into the chosen environment. <strong>Other projects are unaffected.</strong></p>
+<p>The first time you switch versions nix downloads and caches all the necessary packages. (Lazy evaluation!)</p>
+<p>I can even hide my default environment to make sure there are no hidden dependencies in my build expression.</p>
+<p>Dependencies can be <em>anything</em>. Nix will install them for you if there is a nix expression available.</p>
+</section>
+<section id="impressions-so-far" class="level2" fragment="fade-in" target="li">
+<h2>Impressions so far</h2>
+<section id="section-9" class="level3">
+<h3></h3>
+</section>
+<section id="the-good" class="level3">
+<h3>The &quot;Good&quot;</h3>
+<ul>
+<li>Switching environments works well and fast after the initial setup. It's really the first time I have been happy doing that.</li>
+<li>The entire set of package expressions is in one git repo. That's cool.</li>
+<li>You literally edit one file to configure your box globally. That's really cool.</li>
+<li>Rolling back a bad configuration is really easy.</li>
+</ul>
+</section>
+<section id="the-bad" class="level3">
+<h3>The &quot;Bad&quot;</h3>
+<ul>
+<li>You <em>must</em> learn how nix expressions work.</li>
+<li>The docs aren't great yet. You must read the code!</li>
+<li>Nobody told me to read the manual's Appendix B first to see how to configure your system. There, I told you.</li>
+<li>Sometimes blogs are more helpful than the docs. Sheesh.</li>
+</ul>
+</section>
+<section id="the-i-dont-know-yet" class="level3">
+<h3>The &quot;I Don't Know Yet&quot;</h3>
+<ul>
+<li>nixops looks powerful. I want to try it.</li>
+<li>Some things are still arcane or rough around the edges (installing latex).</li>
+<li>Will I be able to write an expression for Intel IPP? It's got a weird installer.</li>
+</ul>
+</section>
+</section>
+<section id="stay-tuned" class="level1">
+<h1>Stay Tuned</h1>
+</section>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../reveal.js/lib/js/head.min.js"></script>
+<script src="../reveal.js/js/reveal.js"></script>
+
+<script>
+  jQuery('section').removeAttr('id');
+  jQuery('section[target]')
+    .map(function(i, el) {
+      jQuery(el).find(el.attributes.target.value)
+        .map(function() {
+          jQuery(this).addClass('fragment ' + el.attributes.fragment.value)
+        });
+    });
+  jQuery('section[bg_color]')
+    .map(function(i, el) {
+      jQuery(el).attr('data-background', el.attributes.bg_color.value);
+    });
+</script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'black',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'default',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+//    { src: '../reveal.js/plugin/markdown/markd.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//    { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: '//.reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+
+</script>
+
+</body>
+</html>
