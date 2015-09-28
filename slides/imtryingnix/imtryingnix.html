@@ -52,12 +52,29 @@
 
 <!--
 Build Notes. Need pandoc, revealjs, plus a custom template in reveal.js/. That's it.
-
 Adapted from a blog piece, which was adapted from an older presentation.
 
+BEGIN OLD
 $ pandoc -t html5 -V revealjs-url=./reveal.js --section-divs --no-highlight -V hlss=zenburn --template=reveal.js/template-revealjs.html  -V theme=black imtryingnix_revealjs.md -o imtryingnix.html
-Must have reveal.js (directory) as a sub directory.
-Must have template file in reveal.js. It's not distributed with reveal.js (Checking it into a branch of my fork)
+END OLD
+
+BEGIN NEW
+Must have reveal.js (directory) at ../reveal.js
+(So it can be shared with other presentations.)
+Must have template file in reveal.js. It's not distributed with reveal.js (Checking it into branch timtweaks of my fork of revealjs)
+After setting up blog repo to support slides AND modifying template to find the reveal.js directory....
+
+`cd ~/blog/slides`
+
+`mkdir imtryingnix/`
+
+Edit imtryingnix.md>
+`pandoc -t html5 -V revealjs-url=../reveal.js --section-divs --no-highlight -V hlss=zenburn --template=../reveal.js/template-revealjs.html  -V theme=black imtryingnix_revealjs.md -o imtryingnix.html`
+
+Outputs `imtryingnix.html` in this directory.
+
+Now it can be used as a part of the site.
+
 -->
 <style type="text/css">
 p { text-align: left; }
@@ -403,17 +420,25 @@ haskellPackages.cabal.mkDerivation (self: {
   // default/cube/page/concave/zoom/linear/fade/none
       transition: Reveal.getQueryHash().transition || 'default',
   
+   // other options ...
+
+    math: {
+        mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+    },
+
+
   // Optional libraries used to extend on reveal.js
   dependencies: [
-    { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-//    { src: '../reveal.js/plugin/markdown/markd.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-//    { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-    { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-    { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-    // { src: '//.reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-  ]
-  });
+  { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  // { src: '../reveal.js/plugin/markdown/markd.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  // { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+  { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+  // { src: '//.reveal.js/plugin/remotes/remotes.js', async: true,  condition: function() { return !!document.body.classList; } },
+  { src: 'plugin/math/math.js', async: true }
+  ] } );
 
 </script>
 
