@@ -37,8 +37,8 @@ Now it can be used as a part of the site.
 <style type="text/css">
 p { text-align: left; }
 /*
-.reveal .slide h1 { font-size: 90%; text-decoration: underline; }
-.reveal .slide h2 { font-size: 80%; text-decoration: underline; }
+.reveal .slide h1 { font-size: 9%; text-decoration: underline; }
+.reveal .slide h2 { font-size: 8%; text-decoration: underline; }
 */
 </style>
 
